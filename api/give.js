@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 // Reddit API endpoint for public posts
-const REDDIT_API_BASE = 'https://www.reddit.com/r';
+const REDDIT_API_BASE = 'https://old.reddit.com/r';
 
 // Cache for rate limiting
 const cache = new Map();
@@ -41,10 +41,18 @@ async function fetchMemes(subreddit = 'memes', count = 1) {
             return cached;
         }
 
-        // Fetch from Reddit with proper headers
+        // Fetch from Reddit with comprehensive headers
         const response = await fetch(`${REDDIT_API_BASE}/${subreddit}/hot.json?limit=${Math.min(count * 2, 100)}`, {
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'application/json, text/plain, */*',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'DNT': '1',
+                'Connection': 'keep-alive',
+                'Sec-Fetch-Dest': 'empty',
+                'Sec-Fetch-Mode': 'cors',
+                'Sec-Fetch-Site': 'same-origin'
             }
         });
         
