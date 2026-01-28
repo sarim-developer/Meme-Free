@@ -3,5 +3,15 @@
     "api/give.js": {
       "maxDuration": 10
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/give",
+      "destination": "/api/give"
+    },
+    {
+      "source": "/give/(.*)",
+      "destination": "/api/give"
+    }
+  ]
 }
