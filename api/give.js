@@ -41,11 +41,17 @@ async function fetchMemes(subreddit = 'memes', count = 1) {
             return cached;
         }
 
-        // Fetch from Reddit
-        const response = await fetch(`${REDDIT_API_BASE}/${subreddit}/hot.json?limit=${Math.min(count * 2, 100)}`);
+        // Fetch from Reddit with proper headers
+        const response = await fetch(`${REDDIT_API_BASE}/${subreddit}/hot.json?limit=${Math.min(count * 2, 100)}`, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            }
+        });
         
         if (!response.ok) {
-            throw new Error(`Reddit API error: ${response.status}`);
+            const errorText = await response.text();
+            console.error('Reddit API response:', errorText);
+            throw new Error(`Reddit API error: ${response.status} - ${errorText}`);
         }
 
         const data = await response.json();
