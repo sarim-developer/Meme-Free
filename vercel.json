@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/give.js": {
+      "maxDuration": 10
+    }
+  }
+}
